@@ -62,8 +62,16 @@ defmodule Resend.Emails do
   @spec update(String.t(), map()) :: Resend.Client.response(Email.t())
   @spec update(Resend.Client.t(), String.t(), map()) :: Resend.Client.response(Email.t())
   def update(client \\ Resend.client(), email_id, opts) do
-    Resend.Client.patch(client, Email, "/emails/:id",
-      opts: [path_params: [id: email_id], body: opts]
+    Resend.Client.patch(
+      client,
+      Email,
+      "/emails/:id",
+      %{
+        scheduled_at: opts[:scheduled_at] || ""
+      },
+      opts: [
+        path_params: [id: email_id]
+      ]
     )
   end
 end
