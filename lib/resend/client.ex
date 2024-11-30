@@ -65,6 +65,13 @@ defmodule Resend.Client do
     |> handle_response(path, castable_module)
   end
 
+  @spec patch(t(), Castable.impl(), String.t()) :: response(any())
+  @spec patch(t(), Castable.impl(), String.t(), map()) :: response(any())
+  @spec patch(t(), Castable.impl(), String.t(), map(), Keyword.t()) :: response(any())
+  def patch(client, castable_module, path, body \\ %{}, opts \\ []) do
+    client_module = client.client || Resend.Client.TeslaClient
+  end
+
   @spec delete(t(), Castable.impl(), String.t()) :: response(any())
   @spec delete(t(), Castable.impl(), String.t(), map()) :: response(any())
   @spec delete(t(), Castable.impl(), String.t(), map(), Keyword.t()) :: response(any())
