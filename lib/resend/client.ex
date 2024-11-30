@@ -70,6 +70,15 @@ defmodule Resend.Client do
   @spec patch(t(), Castable.impl(), String.t(), map(), Keyword.t()) :: response(any())
   def patch(client, castable_module, path, body \\ %{}, opts \\ []) do
     client_module = client.client || Resend.Client.TeslaClient
+
+    opts =
+      opts
+      |> Keyword.put(:method, :patch)
+      |> Keyword.put(:url, path)
+      |> Keyword.put(:body, body)
+
+    client_module.request(client, opts)
+    |> handle_response(path, castable_module)
   end
 
   @spec delete(t(), Castable.impl(), String.t()) :: response(any())
